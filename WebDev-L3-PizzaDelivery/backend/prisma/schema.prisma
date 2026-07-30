@@ -18,6 +18,12 @@ model User {
   email     String    @unique
   password  String
   isAdmin   Boolean   @default(false) // separates admin vs user
+  isVerified  Boolean  @default(false)
+  verificationToken  String?
+  resetToken  String?
+  resetTokenExpiresAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   orders    Order[]
   customPizzas CustomPizza[]
 }
@@ -82,11 +88,24 @@ model CustomPizza {
   vegetables  Vegetable[] @relation("CustomPizzaVegetables")
   orderItems  OrderItem[]
 }
+enum OrderStatus {
+  RECEIVED
+  IN_KITCHEN
+  SENT_TO_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+enum PaymentStatus{
+  PENDING
+  SUCCESS
+  FAILED
+}
 
 model Order {
   id        Int         @id @default(autoincrement())
   createdAt DateTime    @default(now())
-  status    String      @default("RECEIVED") // RECEIVED → IN_KITCHEN → DELIVERY
+  status    OrderStatus      @default(RECEIVED) // RECEIVED → IN_KITCHEN → DELIVERY
+  totalAmount  Float
   userId    Int
   user      User        @relation(fields: [userId], references: [id])
   items     OrderItem[]
@@ -109,7 +128,7 @@ model Payment {
   id        Int      @id @default(autoincrement())
   orderId   Int      @unique
   amount    Float
-  status    String   @default("PENDING") // PENDING → SUCCESS → FAILED
+  status    PaymentStatus   @default(PENDING) // PENDING → SUCCESS → FAILED
   razorpayId String?
 
   order     Order    @relation(fields: [orderId], references: [id])

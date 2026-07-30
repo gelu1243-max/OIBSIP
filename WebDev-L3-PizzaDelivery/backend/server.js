@@ -4,6 +4,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import {connectDB} from './config/db.js';
 import router from './route/authRoutes.js';
+import {pizzarouter} from './route/pizzaRoute.js'
 
 
 dotenv.config();
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 connectDB();
 
 app.use('/api/users', router);
+app.use('/api',pizzarouter)
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
