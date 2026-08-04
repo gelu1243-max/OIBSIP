@@ -31,9 +31,9 @@ export const getPizzaBaseByID=async(req,res)=>{
 }
 export const createPizzabase=async(req,res)=>{
     try{
-        const{name,stock,threshold}=req.body
+        const{name,stock,threshold,price}=req.body
         const pizzabase=await prisma.pizzaBase.create({
-            data:{name,stock,threshold}
+            data:{name,stock,threshold,price}
         })
         res.status(201).json(pizzabase)
     }catch(error){
@@ -46,7 +46,7 @@ export const createPizzabase=async(req,res)=>{
 export const updatepizzabase=async(req,res)=>{
     try{
         const{id}=req.params
-        const{name,stock,threshold}=req.body
+        const{name,stock,threshold,price}=req.body
         const pizzabase =await prisma.pizzaBase.findUnique({
             where:{id:Number(id)}
         })
@@ -57,7 +57,7 @@ export const updatepizzabase=async(req,res)=>{
         }
         const updatepizzabase=await prisma.pizzaBase.update({
             where:{id:Number(id)},
-            data:{name,stock,threshold}
+            data:{name,stock,threshold,price}
         })
         res.status(200).json(updatepizzabase)
         

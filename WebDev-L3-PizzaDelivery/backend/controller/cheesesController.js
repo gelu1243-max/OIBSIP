@@ -31,9 +31,9 @@ export const getcheeseByID=async(req,res)=>{
 }
 export const createcheese=async(req,res)=>{
     try{
-        const{name,stock,threshold}=req.body
+        const{name,stock,threshold,price}=req.body
         const cheese=await prisma.cheese.create({
-            data:{name,stock,threshold}
+            data:{name,stock,threshold,price}
         })
         res.status(201).json(cheese)
     }catch(error){
@@ -46,7 +46,7 @@ export const createcheese=async(req,res)=>{
 export const updatecheese=async(req,res)=>{
     try{
         const{id}=req.params
-        const{name,stock,threshold}=req.body
+        const{name,stock,threshold,price}=req.body
         const cheese =await prisma.cheese.findUnique({
             where:{id:Number(id)}
         })
@@ -57,7 +57,7 @@ export const updatecheese=async(req,res)=>{
         }
         const updatecheese=await prisma.cheese.update({
             where:{id:Number(id)},
-            data:{name,stock,threshold}
+            data:{name,stock,threshold,price}
         })
         res.status(200).json(updatecheese)
         

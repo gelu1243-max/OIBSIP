@@ -31,9 +31,9 @@ export const getsauceByID=async(req,res)=>{
 }
 export const createsauce=async(req,res)=>{
     try{
-        const{name,stock,threshold}=req.body
+        const{name,stock,threshold,price}=req.body
         const sauce=await prisma.sauce.create({
-            data:{name,stock,threshold}
+            data:{name,stock,threshold,price}
         })
         res.status(201).json(sauce)
     }catch(error){
@@ -46,7 +46,7 @@ export const createsauce=async(req,res)=>{
 export const updatesauce=async(req,res)=>{
     try{
         const{id}=req.params
-        const{name,stock,threshold}=req.body
+        const{name,stock,threshold,price}=req.body
         const sauce =await prisma.sauce.findUnique({
             where:{id:Number(id)}
         })
@@ -57,7 +57,7 @@ export const updatesauce=async(req,res)=>{
         }
         const updatesauce=await prisma.sauce.update({
             where:{id:Number(id)},
-            data:{name,stock,threshold}
+            data:{name,stock,threshold,price}
         })
         res.status(200).json(updatesauce)
         

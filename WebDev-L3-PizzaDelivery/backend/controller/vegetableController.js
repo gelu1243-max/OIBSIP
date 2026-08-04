@@ -31,9 +31,9 @@ export const getvegetableByID=async(req,res)=>{
 }
 export const createvegetable=async(req,res)=>{
     try{
-        const{name,stock,threshold}=req.body
+        const{name,stock,threshold,price}=req.body
         const vegetable=await prisma.vegetable.create({
-            data:{name,stock,threshold}
+            data:{name,stock,threshold,price}
         })
         res.status(201).json(vegetable)
     }catch(error){
@@ -46,7 +46,7 @@ export const createvegetable=async(req,res)=>{
 export const updatevegetable=async(req,res)=>{
     try{
         const{id}=req.params
-        const{name,stock,threshold}=req.body
+        const{name,stock,threshold,price}=req.body
         const vegetable =await prisma.vegetable.findUnique({
             where:{id:Number(id)}
         })
@@ -57,7 +57,7 @@ export const updatevegetable=async(req,res)=>{
         }
         const updatevegetable=await prisma.vegetable.update({
             where:{id:Number(id)},
-            data:{name,stock,threshold}
+            data:{name,stock,threshold,price}
         })
         res.status(200).json(updatevegetable)
         
