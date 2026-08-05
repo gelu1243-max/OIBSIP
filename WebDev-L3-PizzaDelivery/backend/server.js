@@ -7,7 +7,7 @@ import router from './route/authRoutes.js';
 import {pizzarouter} from './route/pizzaRoute.js'
 import {inventoryrouter}from './route/inventoryRoute.js'
 import customPizzaRouter from './route/customPizzaRoutes.js';
-
+import orderRouter from './route/orderRoute.js';
 
 dotenv.config();
 const app = express();
@@ -20,6 +20,7 @@ app.use('/api/users', router);
 app.use('/api',pizzarouter)
 app.use('/api',inventoryrouter);
 app.use('/api', customPizzaRouter);
+app.use('/api', orderRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

@@ -22,8 +22,9 @@ export const createCustomPizza = async (req, res) =>{
         const vegetableNames = vegetables.map((veg) => veg.name).join(", ");
         const description =`A delicious custom pizza with ${base.name} base, ${sauce.name} sauce, ${cheese.name} cheese, and topped with ${vegetableNames}.`;
         //calculate total price
+        const preparationFee = 3; // Assuming a fixed preparation fee
         const vegtablePrice = vegetables.reduce((total, veg) => total + veg.price, 0);
-        const totalPrice = base.price + sauce.price + cheese.price + vegtablePrice;
+        const totalPrice = base.price + sauce.price + cheese.price + vegtablePrice + preparationFee;
         //create custom pizza
         const customPizza = await prisma.customPizza.create({
             data:{
