@@ -83,12 +83,12 @@ model CustomPizza {
   description String?     // auto-generated summary of chosen ingredients
   price       Float
   user        User        @relation(fields: [userId], references: [id])
-  baseId      Int?
-  sauceId     Int?
-  cheeseId    Int?
-  base        PizzaBase?  @relation(fields: [baseId], references: [id])
-  sauce       Sauce?      @relation(fields: [sauceId], references: [id])
-  cheese      Cheese?     @relation(fields: [cheeseId], references: [id])
+  baseId      Int
+  sauceId     Int
+  cheeseId    Int
+  base        PizzaBase  @relation(fields: [baseId], references: [id])
+  sauce       Sauce      @relation(fields: [sauceId], references: [id])
+  cheese      Cheese     @relation(fields: [cheeseId], references: [id])
   vegetables  Vegetable[] @relation("CustomPizzaVegetables")
   orderItems  OrderItem[]
 }
