@@ -1,5 +1,6 @@
 import { prisma } from "../config/db.js";
 import {OrderStatus} from "@prisma/client";
+import { checkLowStock } from "../utils/inventoryNotification.js";
 export const createOrder = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -198,7 +199,7 @@ export const createOrder = async (req, res) => {
 
       return createdOrder;
     });
-
+    await checkLowStock();
     res.status(201).json(order);
 
   } catch (error) {
