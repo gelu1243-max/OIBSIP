@@ -1,4 +1,4 @@
-const Navbar = () => {
+const Navbar = ({onLogin, onRegister}) => {
   return (
     <nav className="navbar">
 
@@ -17,11 +17,13 @@ const Navbar = () => {
       </div>
 
       <div className="nav-actions">
-        <button className="login-btn">
+        <button className="login-btn"
+        onClick={onLogin}>
           Login
         </button>
 
-        <button className="register-btn">
+        <button className="register-btn"
+        onClick={onRegister}>
           Register
         </button>
       </div>
