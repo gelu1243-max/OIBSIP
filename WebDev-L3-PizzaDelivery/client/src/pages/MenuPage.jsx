@@ -87,6 +87,17 @@ const MenuPage = () => {
 
   console.log("Cart updated:", updatedCart);
 };
+//build your own pizza
+const handleBuildCustomPizza = () => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    setAuthMode("login");
+    return;
+  }
+
+  navigate("/custom-pizza");
+};
 
   if (loading) {
     return (
@@ -120,6 +131,13 @@ const MenuPage = () => {
           Choose your favorite pizza and enjoy it
           freshly prepared and delivered to your door.
         </p>
+
+        <button
+          className="custom-pizza-btn"
+          onClick={handleBuildCustomPizza}
+        >
+          🍕 Build Your Own Pizza
+        </button>
       </section>
 
       {/* Pizza grid */}

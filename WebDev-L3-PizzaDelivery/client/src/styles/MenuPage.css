@@ -262,3 +262,20 @@
     height: 250px;
   }
 }
+.custom-pizza-btn {
+  margin-top: 20px;
+  padding: 14px 25px;
+  border: none;
+  border-radius: 10px;
+  background: #e85d04;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.custom-pizza-btn:hover {
+  background: #d94f00;
+  transform: translateY(-2px);
+}

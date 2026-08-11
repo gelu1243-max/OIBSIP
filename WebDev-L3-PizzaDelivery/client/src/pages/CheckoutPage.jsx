@@ -52,9 +52,12 @@ const CheckoutPage = () => {
       // Convert cart items into the format
       // expected by your backend
       const items = cart.map((item) => ({
-        pizzaId: item.id,
-        quantity: item.quantity,
-      }));
+  ...(item.customPizzaId
+    ? { customPizzaId: item.customPizzaId }
+    : { pizzaId: item.id }),
+
+  quantity: item.quantity,
+}));
 
       const response = await fetch(
         "http://localhost:5000/api/orders",
