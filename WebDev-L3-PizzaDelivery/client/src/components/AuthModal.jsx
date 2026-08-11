@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AuthModal({ mode, onClose, onSwitch }) {
+  const navigate = useNavigate();
   const isLogin = mode === "login";
 
   const [formData, setFormData] = useState({
@@ -96,6 +98,7 @@ function AuthModal({ mode, onClose, onSwitch }) {
       // Close modal after successful login
       setTimeout(() => {
         onClose();
+        navigate("/menu")
       }, 500);
     }
 

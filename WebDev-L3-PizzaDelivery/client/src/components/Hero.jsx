@@ -1,6 +1,8 @@
 import heroImage from "../assets/hero.png";
+import {useNavigate} from "react-router-dom";
 
 const Hero = () => {
+  const navigate =useNavigate()
   return (
     <section className="hero">
 
@@ -27,7 +29,8 @@ const Hero = () => {
             🍕 Order Now
           </button>
 
-          <button className="menu-btn">
+          <button className="menu-btn"
+           onClick={()=>navigate("/menu")}>
             ▶ View Menu
           </button>
 
