@@ -299,3 +299,31 @@ export const deleteOrder=async(req,res)=>{
         res.status(500).json({error:"Internal server error"});  
     }
 }
+//get orders belonging only to logged-in customer
+export const getMyOrders=async (req,res)=>{
+  try{
+    const userId=req.user.id;
+    const orders=await prisma.order.findMany({
+      where:{
+        userId:userId,
+      },
+      include:{
+        items:{
+          include:{
+            pizza: true,
+            customPizza: true,
+          },
+        },
+      },
+      orderBy:{
+        id:"desc",
+      }
+    });
+    res.status(200).json(orders)
+  }catch(e){
+    console.error("Error fetching my orders: ", e)
+    res.status(500).json({
+      message:"Internal server error",
+    });
+  }
+}

@@ -1,5 +1,5 @@
 import express from "express";
-import { createOrder, getAllOrders, getOrderById, updateOrderStatus,deleteOrder } from "../controller/orderController.js";
+import { createOrder, getAllOrders, getOrderById, updateOrderStatus,deleteOrder,getMyOrders} from "../controller/orderController.js";
 import { authMiddleware } from "../middleware/authmiddleware.js";
 
 const orderRouter=express.Router();
@@ -9,5 +9,6 @@ orderRouter.get("/orders",authMiddleware,getAllOrders);
 orderRouter.get("/orders/:orderId",authMiddleware,getOrderById);
 orderRouter.patch("/orders/:orderId/status",authMiddleware,updateOrderStatus);
 orderRouter.delete("/orders/:orderId",authMiddleware,deleteOrder);
+orderRouter.get("/my-orders",authMiddleware,getMyOrders)
 
 export default orderRouter;
