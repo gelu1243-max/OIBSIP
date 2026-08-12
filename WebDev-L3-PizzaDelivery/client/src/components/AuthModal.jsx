@@ -98,7 +98,11 @@ function AuthModal({ mode, onClose, onSwitch }) {
       // Close modal after successful login
       setTimeout(() => {
         onClose();
-        navigate("/menu")
+        if(data.user.isAdmin){
+          navigate("/admin/dashboard");
+        }else{
+          navigate("/menu")
+        }
       }, 500);
     }
 
