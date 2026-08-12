@@ -1,0 +1,575 @@
+/* ================================
+   Admin Inventory Page
+================================ */
+
+.admin-inventory-page {
+  min-height: 100vh;
+  padding: 40px 50px;
+  background: #fff8f3;
+}
+
+
+/* ================================
+   Header
+================================ */
+
+.inventory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 45px;
+}
+
+.inventory-badge {
+  display: inline-block;
+  padding: 8px 15px;
+  border-radius: 20px;
+  background: #fff0e6;
+  color: #f97316;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.inventory-header h1 {
+  margin: 15px 0 10px;
+  font-size: 40px;
+  color: #222;
+}
+
+.inventory-header h1 span {
+  color: #f97316;
+}
+
+.inventory-header p {
+  margin: 0;
+  color: #666;
+  font-size: 16px;
+}
+
+
+/* ================================
+   Back Button
+================================ */
+
+.inventory-back-btn {
+  border: none;
+  background: #222;
+  color: white;
+  padding: 13px 22px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.inventory-back-btn:hover {
+  background: #333;
+  transform: translateY(-1px);
+}
+
+
+/* ================================
+   Inventory Container
+================================ */
+
+.inventory-container {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+
+/* ================================
+   Inventory Section
+================================ */
+
+.inventory-section {
+  margin-bottom: 45px;
+}
+
+.inventory-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.inventory-section-header h2 {
+  margin: 0;
+  color: #222;
+  font-size: 25px;
+}
+
+.inventory-section-header span {
+  background: #f3f3f3;
+  color: #666;
+  padding: 7px 13px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* ================================
+   Inventory Grid
+================================ */
+
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+
+/* ================================
+   Inventory Card
+================================ */
+
+.inventory-card {
+  background: white;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.07);
+  border: 1px solid #f0f0f0;
+  transition: 0.2s ease;
+}
+
+.inventory-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.inventory-card h3 {
+  margin: 0 0 12px;
+  color: #222;
+  font-size: 19px;
+}
+
+.inventory-card > p {
+  margin: 6px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+
+/* ================================
+   Stock Information
+================================ */
+
+.stock-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 18px 0 8px;
+  padding: 13px;
+
+  border-radius: 10px;
+  background: #fafafa;
+}
+
+.stock-info span {
+  color: #555;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.stock-info strong {
+  font-size: 20px;
+}
+
+.normal-stock {
+  color: #22c55e;
+}
+
+.low-stock {
+  color: #ef4444;
+}
+
+
+/* ================================
+   Threshold
+================================ */
+
+.inventory-card .threshold {
+  color: #888;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+
+/* ================================
+   Edit Button
+================================ */
+
+.inventory-card button {
+  width: 100%;
+  border: none;
+
+  padding: 11px 15px;
+
+  border-radius: 8px;
+
+  background: #f97316;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.inventory-card button:hover {
+  background: #ea580c;
+}
+
+
+/* ================================
+   Loading
+================================ */
+
+.inventory-loading {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #fff8f3;
+}
+
+.inventory-loading h2 {
+  color: #f97316;
+}
+
+
+/* ================================
+   Error
+================================ */
+
+.inventory-error {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+
+  background: #fff8f3;
+}
+
+.inventory-error h2 {
+  color: #ef4444;
+}
+
+.inventory-error button {
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+
+  background: #222;
+  color: white;
+
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.inventory-error button:hover {
+  background: #333;
+}
+
+
+/* ================================
+   Tablet
+================================ */
+
+@media (max-width: 1100px) {
+  .admin-inventory-page {
+    padding: 35px 30px;
+  }
+
+  .inventory-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+/* ================================
+   Small Tablet
+================================ */
+
+@media (max-width: 800px) {
+  .inventory-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .inventory-header h1 {
+    font-size: 34px;
+  }
+
+  .inventory-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .inventory-back-btn {
+    width: 100%;
+  }
+}
+
+
+/* ================================
+   Mobile
+================================ */
+
+@media (max-width: 550px) {
+  .admin-inventory-page {
+    padding: 25px 18px;
+  }
+
+  .inventory-header h1 {
+    font-size: 29px;
+  }
+
+  .inventory-header p {
+    font-size: 14px;
+  }
+
+  .inventory-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .inventory-section-header h2 {
+    font-size: 21px;
+  }
+
+  .inventory-card {
+    padding: 20px;
+  }
+}
+/* ================================
+   Header Actions
+================================ */
+
+.inventory-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.add-inventory-btn {
+  border: none;
+  background: #f97316;
+  color: white;
+  padding: 13px 20px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.add-inventory-btn:hover {
+  background: #ea580c;
+}
+
+
+/* ================================
+   Add Inventory Overlay
+================================ */
+
+.inventory-form-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.45);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+
+  z-index: 1000;
+}
+
+
+/* ================================
+   Form
+================================ */
+
+.inventory-form {
+  width: 100%;
+  max-width: 500px;
+
+  background: white;
+
+  border-radius: 18px;
+
+  padding: 30px;
+
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+}
+
+.inventory-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 25px;
+}
+
+.inventory-form-header h2 {
+  margin: 0;
+  color: #222;
+}
+
+.close-form-btn {
+  border: none;
+  background: #f3f3f3;
+
+  width: 35px;
+  height: 35px;
+
+  border-radius: 50%;
+
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.close-form-btn:hover {
+  background: #e5e5e5;
+}
+
+
+/* ================================
+   Form Groups
+================================ */
+
+.inventory-form .form-group {
+  margin-bottom: 18px;
+}
+
+.inventory-form label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #333;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.inventory-form input,
+.inventory-form select {
+  width: 100%;
+
+  padding: 12px 13px;
+
+  border: 1px solid #ddd;
+
+  border-radius: 8px;
+
+  font-size: 14px;
+
+  box-sizing: border-box;
+}
+
+.inventory-form input:focus,
+.inventory-form select:focus {
+  outline: none;
+  border-color: #f97316;
+}
+
+
+/* ================================
+   Save Button
+================================ */
+
+.save-inventory-btn {
+  width: 100%;
+
+  border: none;
+
+  padding: 13px;
+
+  border-radius: 8px;
+
+  background: #f97316;
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.save-inventory-btn:hover {
+  background: #ea580c;
+}
+
+.save-inventory-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* ================================
+   Responsive Header
+================================ */
+
+@media (max-width: 800px) {
+  .inventory-header-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .inventory-header-actions button {
+    width: 100%;
+  }
+}
+.edit-inventory-btn {
+  border: none;
+  background: #3b82f6;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.edit-inventory-btn:hover {
+  background: #2563eb;
+}
+.inventory-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.inventory-actions button {
+  flex: 1;
+}
+
+.delete-inventory-btn {
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #ef4444;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.delete-inventory-btn:hover {
+  background: #dc2626;
+}
