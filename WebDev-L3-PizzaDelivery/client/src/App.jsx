@@ -10,6 +10,8 @@ import AdminDashboard from "./pages/AdminDashboard.jsx"
 import AdminOrdersPage from "./pages/AdminOrdersPage.jsx";
 import AdminInventoryPage from "./pages/AdminInventoryPage.jsx";
 import AdminPizzaPage from "./pages/AdminPizzaPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 import "./App.css";
 import { BrowserRouter,Routes,Route } from "react-router-dom";
 
@@ -29,6 +31,8 @@ function App() {
       <Route path="/admin/orders" element={<AdminOrdersPage />}/>
       <Route path="/admin/inventory" element={<AdminInventoryPage />}/>
       <Route path="/admin/pizzas" element={<AdminPizzaPage />}/>
+      <Route path="/forgot-password" element={<ForgotPasswordPage />}/>
+      <Route path="/reset-password/:token" element={<ResetPasswordPage />}/>
     </Routes>
     </BrowserRouter>
   )

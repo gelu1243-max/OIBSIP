@@ -170,4 +170,154 @@ export const loginUser =async(req, res)=>{
     }
 
 }
-export default {registerUser, loginUser};
+// Forgot Password
+export const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({
+        message: "Email is required.",
+      });
+    }
+
+    // Find user
+    const user = await prisma.User.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found.",
+      });
+    }
+
+    // Generate reset token
+    const resetToken = crypto.randomBytes(32).toString("hex");
+
+    // Token expires in 15 minutes
+    const resetTokenExpiresAt = new Date(
+      Date.now() + 15 * 60 * 1000
+    );
+
+    // Save reset token in database
+    await prisma.User.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        resetToken,
+        resetTokenExpiresAt,
+      },
+    });
+
+    // Reset password link
+    const resetLink =
+      `http://localhost:5173/reset-password/${resetToken}`;
+
+    // Send email
+    await sendEmail(
+      email,
+      "Reset your PizzaDelivery password",
+      `Hello ${user.name},
+
+We received a request to reset your PizzaDelivery account password.
+
+Please click the link below to reset your password:
+
+${resetLink}
+
+This link will expire in 15 minutes.
+
+If you did not request a password reset, you can ignore this email.
+
+Thank you,
+PizzaDelivery Team`
+    );
+
+    res.status(200).json({
+      message:
+        "Password reset link has been sent to your email.",
+    });
+
+  } catch (error) {
+    console.error("Forgot password error:", error);
+
+    res.status(500).json({
+      message: "Error processing forgot password request.",
+      error: error.message,
+    });
+  }
+};
+// Reset Password
+export const resetPassword = async (req, res) => {
+  try {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    if (!token) {
+      return res.status(400).json({
+        message: "Reset token is required.",
+      });
+    }
+
+    if (!password) {
+      return res.status(400).json({
+        message: "New password is required.",
+      });
+    }
+
+    // Find user using reset token
+    const user = await prisma.User.findFirst({
+      where: {
+        resetToken: token,
+      },
+    });
+
+    if (!user) {
+      return res.status(400).json({
+        message: "Invalid or expired reset token.",
+      });
+    }
+
+    // Check token expiration
+    if (
+      !user.resetTokenExpiresAt ||
+      user.resetTokenExpiresAt < new Date()
+    ) {
+      return res.status(400).json({
+        message: "Reset token has expired.",
+      });
+    }
+
+    // Hash new password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Update password and clear reset token
+    const updatedUser = await prisma.User.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        password: hashedPassword,
+        resetToken: null,
+        resetTokenExpiresAt: null,
+      },
+    });
+
+    res.status(200).json({
+      message: "Password reset successfully.",
+    });
+
+  } catch (error) {
+    console.error("Reset password error:", error);
+
+    res.status(500).json({
+      message: "Error resetting password.",
+      error: error.message,
+    });
+  }
+};
+export default {registerUser, loginUser,forgotPassword,resetPassword};

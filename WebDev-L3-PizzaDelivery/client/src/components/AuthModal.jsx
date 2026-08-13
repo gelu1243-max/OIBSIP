@@ -220,9 +220,15 @@ function AuthModal({ mode, onClose, onSwitch }) {
           {/* Forgot password */}
           {isLogin && (
             <div className="forgot-password">
-              <a href="#">
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  navigate("/forgot-password");
+                }}
+              >
                 Forgot password?
-              </a>
+              </button>
             </div>
           )}
 

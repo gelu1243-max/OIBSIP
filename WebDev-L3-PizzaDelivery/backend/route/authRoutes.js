@@ -1,5 +1,5 @@
 import express from "express";
-import {registerUser, loginUser,verifyEmail} from "../controller/authController.js";
+import {registerUser, loginUser,verifyEmail,forgotPassword,resetPassword} from "../controller/authController.js";
 import {getprofile} from "../controller/profilecontroller.js";
 import {authMiddleware }from "../middleware/authmiddleware.js"; 
 
@@ -8,5 +8,6 @@ router.post('/register', registerUser);
 router.post("/login", loginUser);
 router.get("/verify/:token", verifyEmail);
 router.get("/profile", authMiddleware, getprofile);
-
+router.post("/forgot-password",forgotPassword)
+router.post("/reset-password/:token", resetPassword);
 export default router;
