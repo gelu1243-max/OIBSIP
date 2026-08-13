@@ -1,0 +1,502 @@
+/* =========================
+   Admin Pizza Page
+========================= */
+
+.admin-pizza-page {
+  min-height: 100vh;
+  padding: 40px;
+  background: #fff8f3;
+  color: #222;
+}
+
+/* =========================
+   Header
+========================= */
+
+.pizza-management-header {
+  max-width: 1200px;
+  margin: 0 auto 35px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.pizza-management-badge {
+  display: inline-block;
+  padding: 7px 14px;
+  border-radius: 20px;
+
+  background: #fff0e6;
+  color: #f97316;
+
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.pizza-management-header h1 {
+  margin: 12px 0 8px;
+  font-size: 38px;
+}
+
+.pizza-management-header h1 span {
+  color: #f97316;
+}
+
+.pizza-management-header p {
+  margin: 0;
+  color: #666;
+}
+
+/* =========================
+   Header Buttons
+========================= */
+
+.pizza-header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.add-pizza-btn,
+.pizza-back-btn {
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.add-pizza-btn {
+  background: #f97316;
+  color: white;
+}
+
+.add-pizza-btn:hover {
+  background: #ea580c;
+}
+
+.pizza-back-btn {
+  background: #eee;
+  color: #333;
+}
+
+.pizza-back-btn:hover {
+  background: #ddd;
+}
+
+/* =========================
+   Pizza Container
+========================= */
+
+.admin-pizza-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* =========================
+   Pizza Grid
+========================= */
+
+.admin-pizza-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* =========================
+   Pizza Card
+========================= */
+
+.admin-pizza-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.admin-pizza-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================
+   Pizza Image
+========================= */
+
+.admin-pizza-image {
+  width: 100%;
+  height: 200px;
+
+  object-fit: cover;
+  display: block;
+}
+
+.admin-pizza-no-image {
+  height: 200px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f5f5f5;
+
+  font-size: 55px;
+}
+
+/* =========================
+   Pizza Information
+========================= */
+
+.admin-pizza-info {
+  padding: 20px;
+}
+
+.admin-pizza-info h3 {
+  margin: 0 0 8px;
+
+  font-size: 21px;
+}
+
+.admin-pizza-description {
+  min-height: 45px;
+
+  margin: 0 0 15px;
+
+  color: #666;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+/* =========================
+   Price & Stock
+========================= */
+
+.admin-pizza-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 18px;
+}
+
+.admin-pizza-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: #f97316;
+}
+
+.admin-pizza-stock {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.normal-pizza-stock {
+  color: #16a34a;
+}
+
+.low-pizza-stock {
+  color: #dc2626;
+}
+
+/* =========================
+   Pizza Actions
+========================= */
+
+.admin-pizza-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-pizza-btn,
+.delete-pizza-btn {
+  flex: 1;
+
+  border: none;
+  padding: 10px;
+
+  border-radius: 7px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.edit-pizza-btn {
+  background: #fff0e6;
+  color: #f97316;
+}
+
+.edit-pizza-btn:hover {
+  background: #ffe0cc;
+}
+
+.delete-pizza-btn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.delete-pizza-btn:hover {
+  background: #fecaca;
+}
+
+/* =========================
+   Form Overlay
+========================= */
+
+.pizza-form-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.45);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+
+  z-index: 1000;
+}
+
+/* =========================
+   Form
+========================= */
+
+.pizza-form {
+  width: 100%;
+  max-width: 500px;
+
+  max-height: 90vh;
+  overflow-y: auto;
+
+  background: white;
+
+  padding: 30px;
+
+  border-radius: 16px;
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.pizza-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 25px;
+}
+
+.pizza-form-header h2 {
+  margin: 0;
+}
+
+.close-pizza-form-btn {
+  width: 35px;
+  height: 35px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #eee;
+
+  font-size: 22px;
+
+  cursor: pointer;
+}
+
+.close-pizza-form-btn:hover {
+  background: #ddd;
+}
+
+/* =========================
+   Form Groups
+========================= */
+
+.pizza-form-group {
+  margin-bottom: 17px;
+}
+
+.pizza-form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.pizza-form-group input,
+.pizza-form-group textarea {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 11px 12px;
+
+  border: 1px solid #ddd;
+  border-radius: 7px;
+
+  font-size: 14px;
+
+  outline: none;
+}
+
+.pizza-form-group textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.pizza-form-group input:focus,
+.pizza-form-group textarea:focus {
+  border-color: #f97316;
+}
+
+/* =========================
+   Save Button
+========================= */
+
+.save-pizza-btn {
+  width: 100%;
+
+  border: none;
+
+  padding: 13px;
+
+  border-radius: 8px;
+
+  background: #f97316;
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.save-pizza-btn:hover {
+  background: #ea580c;
+}
+
+.save-pizza-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================
+   Loading
+========================= */
+
+.admin-pizza-loading {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #fff8f3;
+}
+
+.admin-pizza-loading h2 {
+  color: #f97316;
+}
+
+/* =========================
+   Error
+========================= */
+
+.admin-pizza-error {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 15px;
+
+  background: #fff8f3;
+}
+
+.admin-pizza-error h2 {
+  color: #dc2626;
+}
+
+.admin-pizza-error button {
+  border: none;
+
+  padding: 11px 20px;
+
+  border-radius: 8px;
+
+  background: #f97316;
+  color: white;
+
+  cursor: pointer;
+}
+
+/* =========================
+   Empty State
+========================= */
+
+.no-pizzas-message {
+  text-align: center;
+
+  padding: 60px 20px;
+
+  background: white;
+
+  border-radius: 15px;
+
+  color: #666;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 1000px) {
+  .admin-pizza-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .admin-pizza-page {
+    padding: 25px 15px;
+  }
+
+  .pizza-management-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pizza-header-actions {
+    width: 100%;
+  }
+
+  .add-pizza-btn,
+  .pizza-back-btn {
+    flex: 1;
+  }
+
+  .admin-pizza-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pizza-form {
+    padding: 22px;
+  }
+}

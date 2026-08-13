@@ -28,5 +28,5 @@ inventoryrouter.delete("/cheese/:id",authMiddleware,adminMiddleware,deletecheese
 inventoryrouter.get("/vegetables",getAllvegetable)
 inventoryrouter.get("/vegetables/:id",getvegetableByID)
 inventoryrouter.post("/vegetables",authMiddleware,adminMiddleware,createvegetable)
-inventoryrouter.put("/vegetables/:id",authMiddleware,adminMiddleware,okupdatevegetable)
+inventoryrouter.put("/vegetables/:id",authMiddleware,adminMiddleware,updatevegetable)
 inventoryrouter.delete("/vegetables/:id",authMiddleware,adminMiddleware,deletevegetable)

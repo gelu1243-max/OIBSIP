@@ -9,6 +9,7 @@ import OrdersPage from "./pages/OrdersPage.jsx"
 import AdminDashboard from "./pages/AdminDashboard.jsx"
 import AdminOrdersPage from "./pages/AdminOrdersPage.jsx";
 import AdminInventoryPage from "./pages/AdminInventoryPage.jsx";
+import AdminPizzaPage from "./pages/AdminPizzaPage";
 import "./App.css";
 import { BrowserRouter,Routes,Route } from "react-router-dom";
 
@@ -27,6 +28,7 @@ function App() {
       <Route path="/admin/dashboard" element={<AdminDashboard/>}/>
       <Route path="/admin/orders" element={<AdminOrdersPage />}/>
       <Route path="/admin/inventory" element={<AdminInventoryPage />}/>
+      <Route path="/admin/pizzas" element={<AdminPizzaPage />}/>
     </Routes>
     </BrowserRouter>
   )

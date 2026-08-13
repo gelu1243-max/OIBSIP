@@ -28,9 +28,9 @@ export const getpizzaById = async(req, res) =>{
 
 export const createPizza = async (req, res) =>{
     try{
-        const{name, description, price, imageUrl, stock} = req.body;
+        const{name, description, price, imageUrl, stock,threshold} = req.body;
         const pizza = await prisma.Pizza.create({
-            data: {name, description, price, imageUrl, stock}
+            data: {name, description, price, imageUrl, stock,threshold}
         });
         res.status(201).json(pizza);
     } catch (error) {
@@ -42,7 +42,7 @@ export const createPizza = async (req, res) =>{
 export const updatePizza=async(req,res)=>{
     try{
         const{id} = req.params;
-        const{name, description, price, imageUrl, stock} = req.body;
+        const{name, description, price, imageUrl, stock, threshold} = req.body;
         const pizza=await prisma.pizza.findUnique({
             where:{
                 id:Number(id)
@@ -55,7 +55,7 @@ export const updatePizza=async(req,res)=>{
         }
         const updatepizza = await prisma.Pizza.update({
             where: {id: Number(id)},
-            data: {name, description, price, imageUrl, stock}
+            data: {name, description, price, imageUrl, stock,threshold}
         });
         res.status(200).json(updatepizza);
 
