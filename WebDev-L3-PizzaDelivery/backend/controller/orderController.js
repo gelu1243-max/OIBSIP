@@ -6,6 +6,9 @@ export const createOrder = async (req, res) => {
     const userId = req.user.id;
     const { items } = req.body;
 
+    // --------------------------------
+    // STEP 1: Validate order
+    // --------------------------------
     if (!items || items.length === 0) {
       return res.status(400).json({
         message: "Order must contain at least one item.",
@@ -15,21 +18,26 @@ export const createOrder = async (req, res) => {
     let totalAmount = 0;
     const orderItems = [];
 
-    // ----------------------------
-    // STEP 1: Validate and calculate total
-    // ----------------------------
+    // --------------------------------
+    // STEP 2: Validate items & calculate total
+    // --------------------------------
     for (const item of items) {
-          if (item.quantity <= 0) {
+      if (!item.quantity || item.quantity <= 0) {
         return res.status(400).json({
-            message: "Quantity must be greater than 0.",
+          message: "Quantity must be greater than 0.",
         });
-    }
+      }
+
       let price = 0;
 
-      // ---------- Regular Pizza ----------
+      // --------------------------------
+      // REGULAR PIZZA
+      // --------------------------------
       if (item.pizzaId) {
         const pizza = await prisma.pizza.findUnique({
-          where: { id: Number(item.pizzaId) },
+          where: {
+            id: Number(item.pizzaId),
+          },
         });
 
         if (!pizza) {
@@ -38,6 +46,7 @@ export const createOrder = async (req, res) => {
           });
         }
 
+        // Check stock
         if (pizza.stock < item.quantity) {
           return res.status(400).json({
             message: `${pizza.name} does not have enough stock.`,
@@ -45,12 +54,22 @@ export const createOrder = async (req, res) => {
         }
 
         price = pizza.price;
+
+        orderItems.push({
+          pizzaId: Number(item.pizzaId),
+          customPizzaId: null,
+          quantity: item.quantity,
+        });
       }
 
-      // ---------- Custom Pizza ----------
+      // --------------------------------
+      // CUSTOM PIZZA
+      // --------------------------------
       else if (item.customPizzaId) {
         const customPizza = await prisma.customPizza.findUnique({
-          where: { id: Number(item.customPizzaId) },
+          where: {
+            id: Number(item.customPizzaId),
+          },
           include: {
             base: true,
             sauce: true,
@@ -65,145 +84,91 @@ export const createOrder = async (req, res) => {
           });
         }
 
-        if (
-          customPizza.base.stock < item.quantity ||
-          customPizza.sauce.stock < item.quantity ||
-          customPizza.cheese.stock < item.quantity
-        ) {
+        // Check base
+        if (customPizza.base.stock < item.quantity) {
           return res.status(400).json({
-            message: "One or more ingredients are out of stock.",
+            message: `${customPizza.base.name} does not have enough stock.`,
           });
         }
 
-        for (const veg of customPizza.vegetables) {
-          if (veg.stock < item.quantity) {
+        // Check sauce
+        if (customPizza.sauce.stock < item.quantity) {
+          return res.status(400).json({
+            message: `${customPizza.sauce.name} does not have enough stock.`,
+          });
+        }
+
+        // Check cheese
+        if (customPizza.cheese.stock < item.quantity) {
+          return res.status(400).json({
+            message: `${customPizza.cheese.name} does not have enough stock.`,
+          });
+        }
+
+        // Check vegetables
+        for (const vegetable of customPizza.vegetables) {
+          if (vegetable.stock < item.quantity) {
             return res.status(400).json({
-              message: `${veg.name} is out of stock.`,
+              message: `${vegetable.name} does not have enough stock.`,
             });
           }
         }
 
         price = customPizza.price;
-      } else {
+
+        orderItems.push({
+          pizzaId: null,
+          customPizzaId: Number(item.customPizzaId),
+          quantity: item.quantity,
+        });
+      }
+
+      // --------------------------------
+      // INVALID ITEM
+      // --------------------------------
+      else {
         return res.status(400).json({
-          message: "Each item must contain pizzaId or customPizzaId.",
+          message:
+            "Each item must contain pizzaId or customPizzaId.",
         });
       }
 
       totalAmount += price * item.quantity;
-
-      orderItems.push({
-        pizzaId: item.pizzaId || null,
-        customPizzaId: item.customPizzaId || null,
-        quantity: item.quantity,
-      });
     }
 
-    // ----------------------------
-    // STEP 2: Transaction
-    // ----------------------------
+    // --------------------------------
+    // STEP 3: Create order
+    // IMPORTANT:
+    // Inventory is NOT decreased here.
+    // --------------------------------
+    const order = await prisma.order.create({
+      data: {
+        userId,
+        totalAmount,
 
-    const order = await prisma.$transaction(async (tx) => {
+        items: {
+          create: orderItems,
+        },
+      },
 
-      // Reduce inventory
-      for (const item of items) {
-
-        // ---------- Regular Pizza ----------
-        if (item.pizzaId) {
-          await tx.pizza.update({
-            where: { id: Number(item.pizzaId) },
-            data: {
-              stock: {
-                decrement: item.quantity,
-              },
-            },
-          });
-        }
-
-        // ---------- Custom Pizza ----------
-        else {
-
-          const customPizza = await tx.customPizza.findUnique({
-            where: {
-              id: Number(item.customPizzaId),
-            },
-            include: {
-              base: true,
-              sauce: true,
-              cheese: true,
-              vegetables: true,
-            },
-          });
-
-          await tx.pizzaBase.update({
-            where: {
-              id: customPizza.baseId,
-            },
-            data: {
-              stock: {
-                decrement: item.quantity,
-              },
-            },
-          });
-
-          await tx.sauce.update({
-            where: {
-              id: customPizza.sauceId,
-            },
-            data: {
-              stock: {
-                decrement: item.quantity,
-              },
-            },
-          });
-
-          await tx.cheese.update({
-            where: {
-              id: customPizza.cheeseId,
-            },
-            data: {
-              stock: {
-                decrement: item.quantity,
-              },
-            },
-          });
-
-          for (const veg of customPizza.vegetables) {
-            await tx.vegetable.update({
-              where: {
-                id: veg.id,
-              },
-              data: {
-                stock: {
-                  decrement: item.quantity,
-                },
-              },
-            });
-          }
-        }
-      }
-
-      // Create order
-      const createdOrder = await tx.order.create({
-        data: {
-          userId,
-          totalAmount,
-          items: {
-            create: orderItems,
+      include: {
+        items: {
+          include: {
+            pizza: true,
+            customPizza: true,
           },
         },
-        include: {
-          items: true,
-        },
-      });
-
-      return createdOrder;
+      },
     });
-    await checkLowStock();
+
+    // --------------------------------
+    // STEP 4: Return order
+    // --------------------------------
     res.status(201).json(order);
 
   } catch (error) {
     console.error("Error creating order:", error);
+
     res.status(500).json({
       message: "Internal server error",
       error: error.message,

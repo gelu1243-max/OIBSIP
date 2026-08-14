@@ -9,6 +9,8 @@ import {inventoryrouter}from './route/inventoryRoute.js'
 import customPizzaRouter from './route/customPizzaRoutes.js';
 import orderRouter from './route/orderRoute.js';
 import testrouter from './route/testRouter.js';
+import paymentRouter from './route/paymentRoutes.js';
+import adminRouter from "./route/adminRoutes.js"
 
 dotenv.config();
 const app = express();
@@ -23,6 +25,8 @@ app.use('/api',inventoryrouter);
 app.use('/api', customPizzaRouter);
 app.use('/api', orderRouter);
 app.use('/api', testrouter);
+app.use('/api/payment', paymentRouter);
+app.use("/api", adminRouter);
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

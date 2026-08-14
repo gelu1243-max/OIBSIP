@@ -47,6 +47,15 @@ const OrdersPage = () => {
     };
 
     fetchOrders();
+    // Check for status changes every 5 seconds
+    const interval = setInterval(() => {
+    fetchOrders();
+  }, 5000);
+
+  // Stop polling when leaving the page
+  return () => {
+    clearInterval(interval);
+  };
   }, [navigate]);
 
   if (loading) {

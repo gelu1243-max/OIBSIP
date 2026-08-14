@@ -14,44 +14,96 @@ const OrderSuccessPage = () => {
       return;
     }
 
-    setOrder(JSON.parse(savedOrder));
+    try {
+      setOrder(JSON.parse(savedOrder));
+    } catch (error) {
+      console.error("Error reading saved order:", error);
+      navigate("/menu");
+    }
   }, [navigate]);
 
   if (!order) {
     return null;
   }
 
+  const paymentStatus =
+    order.paymentStatus ||
+    order.payment?.status ||
+    "PENDING";
+
+  const orderStatus =
+    order.status || "PENDING";
+
   return (
     <div className="order-success-page">
+
       <div className="order-success-card">
 
+        {/* Success Icon */}
         <div className="success-icon">
           ✓
         </div>
 
-        <h1>Order Placed Successfully!</h1>
+        {/* Heading */}
+        <h1>
+          Order Placed Successfully!
+        </h1>
 
         <p className="success-message">
-          Thank you for your order. Your pizza is being
-          prepared and will be delivered soon. 🍕
+          Thank you for your order. Your payment was
+          successful and your pizza is now being prepared. 🍕
         </p>
 
+
+        {/* Order Information */}
         <div className="order-info">
 
+          {/* Order ID */}
           <div className="order-info-row">
-            <span>Order ID</span>
-            <strong>#{order.id}</strong>
-          </div>
+            <span>
+              Order ID
+            </span>
 
-          <div className="order-info-row">
-            <span>Status</span>
-            <strong className="order-status">
-              {order.status || "PENDING"}
+            <strong>
+              #{order.id}
             </strong>
           </div>
 
+
+          {/* Payment Status */}
           <div className="order-info-row">
-            <span>Total</span>
+            <span>
+              Payment
+            </span>
+
+            <strong
+              className={`payment-status payment-${paymentStatus.toLowerCase()}`}
+            >
+              {paymentStatus}
+            </strong>
+          </div>
+
+
+          {/* Order Status */}
+          <div className="order-info-row">
+            <span>
+              Order Status
+            </span>
+
+            <strong
+              className={`order-status status-${orderStatus.toLowerCase()}`}
+            >
+              {orderStatus}
+            </strong>
+          </div>
+
+
+          {/* Total */}
+          <div className="order-info-row">
+            <span>
+              Total
+            </span>
+
             <strong>
               ₹{Number(order.totalAmount).toFixed(2)}
             </strong>
@@ -59,6 +111,21 @@ const OrderSuccessPage = () => {
 
         </div>
 
+
+        {/* Information message */}
+        <div className="order-tracking-message">
+          <p>
+            🍕 Your order has been received.
+          </p>
+
+          <p>
+            You can track your order status from
+            the My Orders page.
+          </p>
+        </div>
+
+
+        {/* Buttons */}
         <div className="success-actions">
 
           <button
@@ -67,6 +134,7 @@ const OrderSuccessPage = () => {
           >
             View My Orders
           </button>
+
 
           <button
             className="continue-shopping-btn"
@@ -78,6 +146,7 @@ const OrderSuccessPage = () => {
         </div>
 
       </div>
+
     </div>
   );
 };

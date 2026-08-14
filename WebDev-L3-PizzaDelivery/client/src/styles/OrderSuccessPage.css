@@ -126,3 +126,31 @@
     width: 100%;
   }
 }
+.payment-status {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.payment-success {
+  color: #22c55e;
+}
+
+.payment-pending {
+  color: #f59e0b;
+}
+
+.payment-failed {
+  color: #ef4444;
+}
+
+.order-tracking-message {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  background: #f8f8f8;
+  text-align: center;
+}
+
+.order-tracking-message p {
+  margin: 5px 0;
+}
