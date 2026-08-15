@@ -2,7 +2,7 @@ import {prisma} from '../config/db.js';
 export const getprofile=async(req,res)=>{
     try{
         const userId=req.user.id;
-        const user =await prisma.User.findUnique({
+        const user =await prisma.user.findUnique({
             where:{id:userId},
             select:{id:true, name:true, email:true}
         });

@@ -135,6 +135,50 @@ a {
   background: #c92e19;
   transform: translateY(-2px);
 }
+.track-order-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.track-order-link:hover {
+  color: #e63946;
+}
+.navbar-profile {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  border: none;
+
+  background: #e4572e;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 4px 12px rgba(228, 87, 46, 0.25);
+
+  transition: all 0.2s ease;
+}
+
+.navbar-profile:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 6px 16px rgba(228, 87, 46, 0.35);
+}
 
 /* =========================
    HERO
@@ -287,42 +331,15 @@ a {
 
   min-height: 500px;
 }
-/* 
-.hero-image::before {
-  content: "";
-
-  position: absolute;
-
-  width: 440px;
-  height: 440px;
-
-  border-radius: 50%;
-
-  background: #fff0df;
-
-  z-index: 0;
-} */
 
 .hero-image img {
-  /* position: relative;
-  z-index: 1;
-
-  width: 100%;
-  max-width: 550px;
-  height: auto;
-
-  object-fit: contain;
-
-  filter: drop-shadow(0 25px 25px rgba(100, 40, 10, 0.15));
-
-  animation: floatingPizza 4s ease-in-out infinite; */
   width: 100%;
   max-width: 600px;
   height: auto;
   object-fit: contain;
   background: transparent; /* Ensure the background is transparent */
 
-  /* remove any white/background box */
+ 
   
 
   filter: drop-shadow(0 25px 25px rgba(169, 65, 17, 0.15));

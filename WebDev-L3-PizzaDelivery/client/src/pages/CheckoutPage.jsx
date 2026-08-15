@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/CheckoutPage.css";
+import customPizzaImage from "../assets/customPizzaImage.webp";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -471,10 +472,13 @@ const CheckoutPage = () => {
             >
 
               <img
-                src={item.imageUrl}
-                alt={item.name}
-              />
-
+  src={
+    item.isCustom
+      ? customPizzaImage
+      : item.imageUrl
+  }
+  alt={item.name}
+/>
 
               <div className="checkout-item-info">
 

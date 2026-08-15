@@ -1,3 +1,4 @@
+import customPizzaImage from "../assets/customPizzaImage.webp";
 const CartItem = ({
   item,
   onUpdateQuantity,
@@ -9,9 +10,13 @@ const CartItem = ({
       {/* Pizza image */}
       <div className="cart-item-image">
         <img
-          src={item.imageUrl}
-          alt={item.name}
-        />
+  src={
+    item.isCustom
+      ? customPizzaImage
+      : item.imageUrl
+  }
+  alt={item.name}
+/>
       </div>
 
       {/* Pizza information */}

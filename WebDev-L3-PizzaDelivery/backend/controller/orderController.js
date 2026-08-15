@@ -280,6 +280,7 @@ export const getMyOrders=async (req,res)=>{
           },
         },
       },
+      payment: true,
       orderBy:{
         id:"desc",
       }

@@ -1,8 +1,30 @@
+import { useState } from "react";
 import heroImage from "../assets/hero.png";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import AuthModal from "../components/AuthModal";
 
 const Hero = () => {
-  const navigate =useNavigate()
+  const navigate = useNavigate();
+
+  const [authMode, setAuthMode] = useState(null);
+
+  const handleOrderNow = () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      // Remember where the user wanted to go
+      sessionStorage.setItem(
+        "redirectAfterLogin",
+        "/menu"
+      );
+
+      setAuthMode("login");
+      return;
+    }
+
+    navigate("/menu");
+  };
+
   return (
     <section className="hero">
 
@@ -25,12 +47,19 @@ const Hero = () => {
 
         <div className="hero-buttons">
 
-          <button className="order-btn">
+          {/* ORDER NOW */}
+          <button
+            className="order-btn"
+            onClick={handleOrderNow}
+          >
             🍕 Order Now
           </button>
 
-          <button className="menu-btn"
-           onClick={()=>navigate("/menu")}>
+          {/* VIEW MENU */}
+          <button
+            className="menu-btn"
+            onClick={() => navigate("/menu")}
+          >
             ▶ View Menu
           </button>
 
@@ -53,11 +82,22 @@ const Hero = () => {
       </div>
 
       <div className="hero-image">
+
         <img
           src={heroImage}
           alt="Delicious pizza"
         />
+
       </div>
+
+      {/* Authentication Modal */}
+      {authMode && (
+        <AuthModal
+          mode={authMode}
+          onClose={() => setAuthMode(null)}
+          onSwitch={(mode) => setAuthMode(mode)}
+        />
+      )}
 
     </section>
   );

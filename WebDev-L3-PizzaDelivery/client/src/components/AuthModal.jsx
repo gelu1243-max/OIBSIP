@@ -15,6 +15,9 @@ function AuthModal({ mode, onClose, onSwitch }) {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
+  // -------------------------
+  // Handle input changes
+  // -------------------------
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -22,6 +25,9 @@ function AuthModal({ mode, onClose, onSwitch }) {
     });
   };
 
+  // -------------------------
+  // Handle login / register
+  // -------------------------
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -30,7 +36,9 @@ function AuthModal({ mode, onClose, onSwitch }) {
     setError("");
 
     try {
+      // =========================
       // REGISTER
+      // =========================
       if (!isLogin) {
         const response = await fetch(
           "http://localhost:5000/api/users/register",
@@ -50,7 +58,9 @@ function AuthModal({ mode, onClose, onSwitch }) {
         const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.message || "Registration failed.");
+          throw new Error(
+            data.message || "Registration failed."
+          );
         }
 
         setMessage(
@@ -62,32 +72,43 @@ function AuthModal({ mode, onClose, onSwitch }) {
           email: "",
           password: "",
         });
+
+        return;
       }
-      //Login
-      else{
-        const response=await fetch(
-          "http://localhost:5000/api/users/login",
-          {
-            method: "POST",
-            headers:{
-              "Content-Type":"application/json"
-            },
-            body: JSON.stringify({
-              email:formData.email,
-              password: formData.password
-            })
-          }
-        )
-        const data = await response.json();
-        if(!response.ok){
-          throw new Error(
-            data.message||"Login failed."
-          )
+
+      // =========================
+      // LOGIN
+      // =========================
+      const response = await fetch(
+        "http://localhost:5000/api/users/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password,
+          }),
         }
-        // Save JWT
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message || "Login failed."
+        );
+      }
+
+      // -------------------------
+      // Save JWT
+      // -------------------------
       localStorage.setItem("token", data.token);
 
+      // -------------------------
       // Save user information
+      // -------------------------
       localStorage.setItem(
         "user",
         JSON.stringify(data.user)
@@ -95,26 +116,59 @@ function AuthModal({ mode, onClose, onSwitch }) {
 
       setMessage("Login successful!");
 
-      // Close modal after successful login
+      // -------------------------
+      // Redirect after login
+      // -------------------------
       setTimeout(() => {
         onClose();
-        if(data.user.isAdmin){
-          navigate("/admin/dashboard");
-        }else{
-          navigate("/menu")
-        }
-      }, 500);
-    }
 
-      
+        // =========================
+        // ADMIN
+        // =========================
+        if (data.user.isAdmin) {
+          sessionStorage.removeItem(
+            "redirectAfterLogin"
+          );
+
+          navigate("/admin/dashboard");
+          return;
+        }
+
+        // =========================
+        // CUSTOMER
+        // =========================
+
+        // Check if customer was trying
+        // to access a protected page
+        const redirectAfterLogin =
+          sessionStorage.getItem(
+            "redirectAfterLogin"
+          );
+
+        if (redirectAfterLogin) {
+          // Remove it after using it
+          sessionStorage.removeItem(
+            "redirectAfterLogin"
+          );
+
+          navigate(redirectAfterLogin);
+          return;
+        }
+
+        // Normal customer login
+        navigate("/menu");
+      }, 500);
     } catch (error) {
-    console.error("Authentication error:", error);
-    setError(error.message);
-  } finally {
-    setLoading(false);
-  }
-};
-  
+      console.error(
+        "Authentication error:",
+        error
+      );
+
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="auth-overlay">
@@ -247,7 +301,7 @@ function AuthModal({ mode, onClose, onSwitch }) {
 
         </form>
 
-        {/* Switch */}
+        {/* Switch login/register */}
         <div className="auth-switch">
 
           {isLogin ? (

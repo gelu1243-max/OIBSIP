@@ -279,3 +279,26 @@
   background: #d94f00;
   transform: translateY(-2px);
 }
+.menu-top-bar {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 25px 30px 0;
+  box-sizing: border-box;
+}
+
+.back-home-btn {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  padding: 10px 0;
+  transition: 0.2s ease;
+}
+
+.back-home-btn:hover {
+  color: #e63920;
+  transform: translateX(-3px);
+}

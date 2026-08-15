@@ -117,6 +117,14 @@ const handleBuildCustomPizza = () => {
 
   return (
     <div className="menu-page">
+          <div className="menu-top-bar">
+      <button
+        className="back-home-btn"
+        onClick={() => navigate("/")}
+      >
+        ← Back to Home
+      </button>
+    </div>
       {/* Header */}
       <section className="menu-header">
         <span className="menu-badge">

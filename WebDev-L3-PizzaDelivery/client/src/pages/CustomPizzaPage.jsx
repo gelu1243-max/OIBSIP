@@ -313,7 +313,12 @@ const CustomPizzaPage = () => {
 
   return (
     <div className="custom-pizza-page">
-
+          <button
+      className="back-home-btn"
+      onClick={() => navigate("/")}
+    >
+      ← Back to Home
+    </button>
       {/* Header */}
 
       <section className="custom-header">

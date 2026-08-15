@@ -12,6 +12,8 @@ import AdminInventoryPage from "./pages/AdminInventoryPage.jsx";
 import AdminPizzaPage from "./pages/AdminPizzaPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import TrackOrderPage from "./pages/TrackOrderPage";
+import ProfilePage from "./pages/ProfilePage";
 import "./App.css";
 import { BrowserRouter,Routes,Route } from "react-router-dom";
 
@@ -33,6 +35,9 @@ function App() {
       <Route path="/admin/pizzas" element={<AdminPizzaPage />}/>
       <Route path="/forgot-password" element={<ForgotPasswordPage />}/>
       <Route path="/reset-password/:token" element={<ResetPasswordPage />}/>
+      <Route path="/track-order" element={<TrackOrderPage />}/>
+      <Route path="/profile" element={<ProfilePage />}/>
+      
     </Routes>
     </BrowserRouter>
   )
