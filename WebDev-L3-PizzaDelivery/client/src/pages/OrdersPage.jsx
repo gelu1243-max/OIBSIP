@@ -83,6 +83,12 @@ const OrdersPage = () => {
 
       {/* Header */}
       <section className="orders-header">
+         <button
+    className="orders-back-home-btn"
+    onClick={() => navigate("/")}
+  >
+    ← Back to Home
+  </button>
 
         <span className="orders-badge">
           🧾 YOUR ORDERS

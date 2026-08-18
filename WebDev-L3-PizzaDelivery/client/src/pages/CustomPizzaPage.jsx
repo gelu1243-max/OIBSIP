@@ -357,7 +357,7 @@ const CustomPizzaPage = () => {
               onChange={(e) =>
                 setPizzaName(e.target.value)
               }
-              placeholder="Example: Gelila's Special"
+              placeholder="Example: My Special Pizza"
               className="pizza-name-input"
             />
 

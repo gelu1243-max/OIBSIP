@@ -13,10 +13,15 @@ const TrackOrderPage = () => {
     const token = localStorage.getItem("token");
 
     // No token
-    if (!token) {
-      navigate("/menu");
-      return;
-    }
+   if (!token) {
+  sessionStorage.setItem(
+    "redirectAfterLogin",
+    "/track-order"
+  );
+
+  navigate("/menu");
+  return;
+}
 
     try {
       const response = await fetch(

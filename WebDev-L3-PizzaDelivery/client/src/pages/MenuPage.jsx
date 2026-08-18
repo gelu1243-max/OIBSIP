@@ -11,6 +11,14 @@ const MenuPage = () => {
   const [error, setError] = useState("");
   const [authMode, setAuthMode] = useState(null);
   useEffect(() => {
+  const redirectAfterLogin =
+    sessionStorage.getItem("redirectAfterLogin");
+
+  if (redirectAfterLogin) {
+    setAuthMode("login");
+  }
+}, []);
+  useEffect(() => {
     const fetchPizzas = async () => {
       try {
         const response = await fetch(
