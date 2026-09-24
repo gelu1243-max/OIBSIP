@@ -186,41 +186,41 @@ WebDev-L3-PizzaDelivery/
 📸 Screenshots
 
 🏠 Home Page
-![Home Page](screenshots/home.png)
+![Home Page](WebDev-L3-PizzaDelivery/screenshots/home.png)
 
 🍕 Pizza Menu
-![Pizza Menu](screenshots/menu.png)
+![Pizza Menu](WebDev-L3-PizzaDelivery/screenshots/menu.png)
 
 
 🛠️ Custom Pizza Builder
-![Custom Pizza Builder](screenshots/Custom-pizza.png)
+![Custom Pizza Builder](WebDev-L3-PizzaDelivery/screenshots/Custom-pizza.png)
 
 
 🛒 Shopping Cart
 
-![Shopping Cart](screenshots/cart.png)
+![Shopping Cart](WebDev-L3-PizzaDelivery/screenshots/cart.png)
 
 💳 Checkout
-![Checkout](screenshots/checkout.png)
+![Checkout](WebDev-L3-PizzaDelivery/screenshots/checkout.png)
 👤 User Profile
 
-![User Profile](screenshots/profile.png)
+![User Profile](WebDev-L3-PizzaDelivery/screenshots/profile.png)
 📦 My Orders
 
-![My Orders](screenshots/my-order.png)
+![My Orders](WebDev-L3-PizzaDelivery/screenshots/my-order.png)
 
 🚚 Order Tracking
 
-![Order Tracking](screenshots/order-traking.png)
+![Order Tracking](WebDev-L3-PizzaDelivery/screenshots/order-traking.png)
 
 🔐 Login
 
-![Login](screenshots/login.png)
+![Login](WebDev-L3-PizzaDelivery/screenshots/login.png)
 
 
 
 ⚙️ Admin Dashboard
-![Admin Dashboard](screenshots/admin-dashboard.png)
+![Admin Dashboard](WebDev-L3-PizzaDelivery/screenshots/admin-dashboard.png)
 
 
 ⚙️ Installation & Setup
